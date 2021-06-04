@@ -9,11 +9,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    peliculasProvider.getPopulares();
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
           title: Text('Movies in cine'),
-          backgroundColor: Colors.indigoAccent,
+          backgroundColor: Colors.black87,
           actions: <Widget>[
             IconButton(
               onPressed: () {},
@@ -63,12 +65,15 @@ class HomePage extends StatelessWidget {
               child: Text('Populares',
                   style: Theme.of(context).textTheme.headline6)),
           SizedBox(height: 5.0),
-          FutureBuilder(
-            future: peliculasProvider.getPopulares(),
+          StreamBuilder(
+            stream: peliculasProvider.popularesStream,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
               if (snapshot.hasData) {
-                return MovieHorizontal(peliculas: snapshot.data!);
+                return MovieHorizontal(
+                  peliculas: snapshot.data!,
+                  siguientePagina: peliculasProvider.getPopulares,
+                );
               } else {
                 return Center(child: CircularProgressIndicator());
               }
