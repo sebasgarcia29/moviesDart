@@ -1,7 +1,10 @@
-import 'package:movies/src/models/pelicula_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+
+// Models
+import 'package:movies/src/models/pelicula_model.dart';
+import 'package:movies/src/models/actors_model.dart';
 
 class PeliculasProvider {
   String _apiKey = '29f9f1a6ec17918a23cf4fe3d8dd6eab';
@@ -45,7 +48,7 @@ class PeliculasProvider {
     // Validacion para no sobrecargar el API
     if (_cargando) {
       return [];
-    } 
+    }
     _cargando = true;
     _popularesPage++;
 
@@ -62,5 +65,17 @@ class PeliculasProvider {
     _cargando = false;
 
     return resp;
+  }
+
+  Future<List<Actor>> getCast(String peliId) async {
+    final url = Uri.https(_url, '/3/movie/$peliId/credits', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
+    final response = await http.get(url);
+    final decodeData = json.decode(response.body);
+
+    final cast = new Cast.fromJsonList(decodeData['cast']);
+    return cast.actores;
   }
 }

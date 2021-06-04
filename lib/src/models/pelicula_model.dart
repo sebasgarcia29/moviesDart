@@ -30,6 +30,7 @@ class Pelicula {
   bool? video;
   double? voteAverage;
   int? voteCount;
+  String uniqueId = ''; // inventada
 
   Pelicula({
     this.adult,
