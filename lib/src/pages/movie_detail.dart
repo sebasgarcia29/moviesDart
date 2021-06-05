@@ -26,7 +26,7 @@ class MovieDetail extends StatelessWidget {
               SizedBox(height: 10.0),
               _posterTitle(pelicula, context),
               _description(pelicula),
-              _description(pelicula),
+              _description2(pelicula),
               _createCasting(pelicula),
             ]),
           ),
@@ -105,6 +105,13 @@ class MovieDetail extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(' ${pelicula.overview} ', textAlign: TextAlign.justify),
+    );
+  }
+
+    Widget _description2(Pelicula pelicula) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+      child: Text(' ${pelicula.releaseDate} ', textAlign: TextAlign.justify),
     );
   }
 

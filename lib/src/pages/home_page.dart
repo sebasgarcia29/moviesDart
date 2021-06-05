@@ -3,6 +3,7 @@ import 'package:movies/src/widgets/card_swiper_widget.dart';
 import 'package:movies/src/providers/peliculas_provider.dart';
 import 'package:movies/src/models/pelicula_model.dart';
 import 'package:movies/src/widgets/movie_horizontal.dart';
+import 'package:movies/src/search/search_delegate.dart';
 
 class HomePage extends StatelessWidget {
   final peliculasProvider = new PeliculasProvider();
@@ -18,8 +19,14 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.black87,
           actions: <Widget>[
             IconButton(
-              onPressed: () {},
               icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: DataSearch(),
+                  // query: 'hola'
+                );
+              },
             )
           ],
         ),
